@@ -78,6 +78,12 @@ class NaverMapViewActivity : AppCompatActivity(), OnMapReadyCallback {
     override fun onMapReady(naverMap: NaverMap) {
         this.naverMap = naverMap
         naverMap.locationSource = locationSource
+        // 지도 유형
+        naverMap.mapType = NaverMap.MapType.Basic
+        // 레이어 그룹
+        naverMap.setLayerGroupEnabled(NaverMap.LAYER_GROUP_TRAFFIC, true)
+        // 실내 지도
+        naverMap.isIndoorEnabled = true
         // 위치 추적 모드 활성화
         naverMap.locationTrackingMode = LocationTrackingMode.Follow
         // 위치 변경 이벤트
@@ -86,6 +92,11 @@ class NaverMapViewActivity : AppCompatActivity(), OnMapReadyCallback {
             Toast.makeText(this, "${location.latitude}, ${location.longitude}",
                 Toast.LENGTH_SHORT).show()
         }
+        // UI와 관련된 설정을 담당하는 클래스 인스턴스 호출
+        val uiSettings = naverMap.uiSettings
+        uiSettings.isCompassEnabled = true  // 나침반 활성화
+        uiSettings.isLocationButtonEnabled = true   // 현위치 버튼 활성화
+        uiSettings.isIndoorLevelPickerEnabled = true    // 실내지도 층 피커 활성화
     }
 
     companion object {
